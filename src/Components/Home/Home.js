@@ -32,9 +32,11 @@ class Home extends Component {
             sessionStorage.removeItem('token');
             transition.router.stateService.go('login', {}, {reload: true});
         });
-        this.setState({
-            contacts: contacts.data
-        })
+        if (contacts) {
+            this.setState({
+                contacts: contacts.data
+            })
+        }
     }
 
     render() {

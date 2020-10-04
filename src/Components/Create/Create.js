@@ -1,15 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Form, message} from 'antd';
 import FormComponent from './FormComponent'
 import axios from "axios";
 
 function Create(props) {
     const [form] = Form.useForm();
+    let token = sessionStorage.getItem('token');
+    let {transition} = props;
+
+    useEffect(() => {
+        if (!token) {
+            transition.router.stateService.go('login', {}, {reload: true});
+        }
+    }, []);
+
     const onFinish = (values) => {
         console.log('Success:', values);
         let formData = new FormData();
-        let token = sessionStorage.getItem('token');
-        let {transition} = props;
         formData.append("name", values.name);
         formData.append("phone_number", values.phone_number);
         axios({

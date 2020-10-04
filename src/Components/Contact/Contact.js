@@ -32,9 +32,11 @@ class Contact extends React.Component {
             sessionStorage.removeItem('token');
             transition.router.stateService.go('login', {}, {reload: true});
         });
-        this.setState({
-            contact: contact.data
-        })
+        if (contact) {
+            this.setState({
+                contact: contact.data
+            })
+        }
     }
 
     render() {
